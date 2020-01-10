@@ -39,7 +39,7 @@ function changeFile(filePath) {
   });
 }
 
-const findFilesInDir = () => {
+const findFilesInDir = (dirPath) => {
   fs.access(dirPath, (err) => {
     if (err) throw err;
   })
@@ -47,17 +47,18 @@ const findFilesInDir = () => {
   let pathsArr = fs.readdirSync(dirPath, err => { if (err) throw err }).map(fileName => {
     return `${dirPath}/${fileName}`
   })
+
   for (pathInDir of pathsArr) {
     try {
       const stats = fs.statSync(pathInDir)
       if (stats.isFile())
-        toChangeFile(pathInDir)
+        changeFile(pathInDir)
       else if (stats.isDirectory())
-        toFindFilesInDir(pathInDir)
+        findFilesInDir(pathInDir)
     } catch (err) {
       console.error(err)
     }
   }
 }
 
-toFindFilesInDir(dirPath)
+findFilesInDir(dirPath)
