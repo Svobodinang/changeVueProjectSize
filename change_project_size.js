@@ -8,7 +8,7 @@ const dirPath = process.argv[2]
 const param = process.argv[3];
 const percent = +process.argv[4];
 
-function toChangeFile(filePath) {
+function changeFile(filePath) {
   fs.access(filePath, (err) => {
     if (err) throw err;
   })
@@ -39,7 +39,7 @@ function toChangeFile(filePath) {
   });
 }
 
-const toFindFilesInDir = () => {
+const findFilesInDir = () => {
   fs.access(dirPath, (err) => {
     if (err) throw err;
   })
